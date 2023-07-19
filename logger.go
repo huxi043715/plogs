@@ -9,6 +9,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+	"path/filepath"
 
 	"github.com/pyihe/go-pkg/buffers"
 	"github.com/pyihe/go-pkg/bytes"
@@ -137,13 +138,18 @@ func (l *Logger) log(level Level, message string) {
 	b.WriteString("] ")
 
 	// write file
-	b.WriteString(fileName)
+	/*b.WriteString(fileName)
 	b.WriteString(":")
 	b.WriteString(strconv.FormatInt(int64(line), 10))
-	b.WriteString(" ")
+	b.WriteString(" ")*/
 
 	// write message
 	b.WriteString(message)
+
+	b.WriteString(" @")
+	b.WriteString(filepath.Base(fileName))
+	b.WriteString(":")
+	b.WriteString(strconv.FormatInt(int64(line), 10))
 
 	//new line
 	b.WriteString("\n")
